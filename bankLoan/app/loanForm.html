@@ -1,0 +1,69 @@
+﻿<div>
+    <h1 class="text-center">Loan Application</h1><br />
+    <form [formGroup]="loanForm">
+
+        <div class="form-group">
+            <label>Social Security Number:</label>
+            <input type="text" class="form-control" formControlName="ssn" placeholder="11 number" maxlength="11" />
+            <div class="alert alert-danger" *ngIf="loanForm.controls['ssn'].hasError('pattern')" >Social Security Number must be entered (11 digits)</div>
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number:</label>
+            <input type="text" class="form-control" formControlName="phoneNum" placeholder="8 number" maxlength="8" />
+            <div class="alert alert-danger" *ngIf="loanForm.controls['phoneNum'].hasError('pattern')">Phone Number must be entered (8 digits)</div>
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="text" class="form-control" formControlName="email" placeholder="example: mark55@live.com" maxlength="30" />
+            <div class="alert alert-danger" *ngIf="loanForm.controls['email'].hasError('pattern')">Email must be entered (bill33@live.com)</div>
+        </div>
+
+        <div class="form-group">
+            <label>Loan Amount:</label>
+            <input type="text" class="form-control" formControlName="loanMoney" (input)="calculateLoan()" placeholder="example: 1234567" maxlength="7" />
+            <div class="alert alert-danger" *ngIf="loanForm.controls['loanMoney'].hasError('pattern')">Loan Amount must be entered (3-7 digits)</div>
+        </div>
+
+        <div class="form-group">
+            <label>Number of Years:</label>
+            <input type="text" class="form-control" formControlName="years" (input)="calculateLoan()" placeholder="1-2 number" maxlength="2" />
+            <div class="alert alert-danger" *ngIf="loanForm.controls['years'].hasError('pattern')">Number of Years must be entered (1-2 digits)</div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Calculated payment:</div>
+            <div class="panel-body">
+                {{result}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button (click)="onSubmit()" class="btn btn-primary btn-lg btn-block" [disabled]="!loanForm.valid">Register</button>
+        </div><br />
+
+        <button (click)="showList()" class="btn btn-info center-block" id="list">List of loan applications</button><br /><br />
+
+        <div class="table-responsive" [hidden]="!show">
+            <table class="table table-bordered table-condensed">
+                    <tr>
+                        <th>SSN</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Loan Amount</th>
+                        <th>Number of Years</th>
+                    </tr>
+                <tbody *ngFor="let c of list">
+                    <tr>
+                        <td>{{c.SSN}}  </td>
+                        <td>{{c.phoneNum}} </td>
+                        <td>{{c.email}} </td>
+                        <td>{{c.loanAmount}} </td>
+                        <td>{{c.numOfYears}} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
